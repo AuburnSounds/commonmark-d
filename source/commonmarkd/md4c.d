@@ -5522,7 +5522,7 @@ md_is_atxheader_line(MD_CTX* ctx, OFF beg, OFF* p_beg, OFF* p_end, uint* p_level
        ctx.CH(off) != ' '  &&  ctx.CH(off) != '\t'  &&  !ctx.ISNEWLINE(off))
         return FALSE;
 
-    while(off < ctx.size  &&  ctx.CH(off) == ' ')
+    while(off < ctx.size  && (ctx.CH(off) == ' ' || ctx.CH(off) == '\t') )
         off++;
     *p_beg = off;
     *p_end = off;
@@ -6489,9 +6489,9 @@ int md_analyze_line(MD_CTX* ctx, OFF beg, OFF* p_end,
             line.end = tmp;
     }
 
-    /* Trim trailing spaces. */
+    /* Trim trailing spaces (and TABs). */
     if(line.type != MD_LINE_INDENTEDCODE  &&  line.type != MD_LINE_FENCEDCODE) {
-        while(line.end > line.beg && ctx.CH(line.end-1) == ' ')
+        while(line.end > line.beg && ( ctx.CH(line.end-1) == ' ' || ctx.CH(line.end-1) == '\t') )
             line.end--;
     }
 
