@@ -4,6 +4,9 @@
 MD4C achieves remarkable parsing speed through the lack of AST and careful memory usage.
 
 
+It passes the test suite of **CommonMark 0.29** but not fully any other version, such as 0.30 or 0.31.
+
+
 ## Usage
 
 ```d
